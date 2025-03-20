@@ -1,14 +1,20 @@
-import { Redirect, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import {
   IonApp,
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
   setupIonicReact,
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonRouterOutlet,
+  IonIcon,
+  IonLabel,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import { home, list } from "ionicons/icons";
 import Home from "./pages/Home";
+import Welcome from "./Welcome";
+import Form from "./Form";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -44,14 +50,28 @@ setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <IonHeader>
-      <IonToolbar>
-        <IonTitle>Hello World App!</IonTitle>
-      </IonToolbar>
-    </IonHeader>
-    <IonContent>
-      <h1>Welcome to Ionic React!</h1>
-    </IonContent>
+    <IonReactRouter>
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route exact path="/home" component={Home}>
+            <Home />
+          </Route>
+          <Route exact path="/form" component={Form}>
+            <Form />
+          </Route>
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="home" href="/home">
+            <IonIcon icon={home} />
+            <IonLabel>Home</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="form" href="/form">
+            <IonIcon icon={list} />
+            <IonLabel>Form</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
+    </IonReactRouter>
   </IonApp>
 );
 
